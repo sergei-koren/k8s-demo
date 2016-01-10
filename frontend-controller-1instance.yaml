@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: frontend
+  labels:
+    name: frontend
+spec:
+  replicas: 1
+  selector:
+    name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/k8s-demo-1183/myguestbook:grownups
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
